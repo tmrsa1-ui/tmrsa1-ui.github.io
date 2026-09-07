@@ -1,154 +1,61 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ورقة — Waraqa</title>
-  <meta name="description" content="إنتاج أوراق اختبار عربية على الجهاز. محلي أولًا." />
-  <style>
-    :root {
-      --paper: #F6F3EC;
-      --raised: #FBF9F4;
-      --ink: #1C1915;
-      --muted: #6B645C;
-      --teal: #1F4D4A;
-      --line: #D7D0C4;
-      --crimson: #8B3A3A;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; background: #E8E2D6; color: var(--ink); font-family: "IBM Plex Sans Arabic", "Noto Naskh Arabic", "Amiri", "Traditional Arabic", serif; }
-    body { min-height: 100dvh; }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .brand { font-weight: 700; font-size: 22px; }
-    .sub { color: var(--muted); font-size: 13px; }
-    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
-    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
-    .panel, .sheet { background: var(--paper); border: 1px solid var(--line); }
-    .panel { padding: 16px; }
-    label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
-    input, select, textarea {
-      width: 100%; background: var(--raised); border: 1px solid var(--line);
-      color: var(--ink); padding: 8px 10px; font: inherit; text-align: start;
-    }
-    button {
-      border: 0; cursor: pointer; font: inherit; padding: 10px 14px;
-    }
-    .btn-main { background: var(--teal); color: var(--paper); width: 100%; margin-top: 12px; }
-    .btn-sec { background: transparent; color: var(--ink); border: 1px solid var(--ink); width: 100%; margin-top: 8px; }
-    .note { font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 12px; }
-    .sheet { min-height: 980px; padding: 36px 40px; }
-    .head { display: grid; grid-template-columns: 1fr auto; gap: 16px; border-bottom: 2px solid var(--teal); padding-bottom: 12px; }
-    .seal {
-      width: 74px; height: 74px; border: 2px solid var(--teal); border-radius: 50%;
-      display: grid; place-items: center; font-size: 12px; color: var(--teal); text-align: center;
-    }
-    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 16px 0 22px; font-size: 14px; }
-    .q { margin: 0 0 18px; text-align: start; }
-    .q h3 { margin: 0 0 6px; font-size: 15px; }
-    .opts { margin: 0; padding: 0 18px 0 0; }
-    .foot { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
-    @media print {
-      body { background: white; }
-      .panel, header .actions { display: none !important; }
-      .wrap { max-width: none; padding: 0; }
-      .sheet { border: 0; min-height: auto; }
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ورقة</title>
+<meta name="theme-color" content="#1F4D4A"/>
+<meta name="waraqa-build" content="0.1.0-web.3"/>
+<style>
+:root{--paper:#F6F3EC;--raised:#FBF9F4;--ink:#1C1915;--muted:#6B645C;--teal:#1F4D4A;--line:#D7D0C4;--crimson:#8B3A3A}
+*{box-sizing:border-box}html,body{margin:0;background:#E8E2D6;color:var(--ink);font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic","Amiri","Traditional Arabic",serif}
+a{color:inherit;text-decoration:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;background:var(--paper);border-bottom:1px solid var(--line)}
+.brand{font-weight:700;color:var(--teal)}.nav a{border:1px solid var(--ink);padding:7px 10px;margin-inline-start:6px;display:inline-block}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 72px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+button.main{background:var(--teal);color:var(--paper);border:1px solid var(--teal);padding:10px 14px;font:inherit;cursor:pointer}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink);padding:10px 14px;font:inherit;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{background:var(--paper);border:1px solid var(--line);padding:14px}
+.muted{color:var(--muted);font-size:13px}.err{color:var(--crimson)}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;background:var(--raised);border:1px solid var(--line);color:var(--ink);padding:8px 10px;font:inherit;text-align:start;direction:rtl}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:16px}@media(max-width:860px){.layout,.stats{grid-template-columns:1fr}}
+.sheet{background:#fff;border:1px solid var(--line);padding:28px 30px;min-height:640px}
+.head{display:grid;grid-template-columns:1fr auto;gap:12px;border-bottom:2px solid var(--teal);padding-bottom:10px}
+.seal{width:74px;height:74px;border:2px solid var(--teal);border-radius:50%;display:grid;place-items:center;color:var(--teal);text-align:center;font-size:12px}
+table.meta{width:100%;border-collapse:collapse;margin:12px 0 16px}table.meta td{border:1px solid var(--ink);padding:4px 6px}
+.q{margin:0 0 14px;text-align:start}.end{text-align:center;margin-top:24px}
+ul.list{list-style:none;padding:0}ul.list li{background:var(--paper);border:1px solid var(--line);padding:12px;margin:8px 0;cursor:pointer}
+@media print{.top,.row,.nav{display:none!important}body{background:#fff}.sheet{border:0}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <div class="brand">ورقة</div>
-        <div class="sub">معاينة محلية على GitHub Pages · البيانات على هذا الجهاز فقط</div>
-      </div>
-      <div class="actions"></div>
-    </header>
-    <div class="layout">
-      <aside class="panel">
-        <label>المدرسة</label>
-        <input id="school" value="مدرسة النور الأهلية" />
-        <label>المادة</label>
-        <input id="subject" value="الدراسات الاجتماعية" />
-        <label>الصف</label>
-        <input id="grade" value="الصف الخامس" />
-        <label>الفصل</label>
-        <input id="term" value="الفصل الأول · ㅄ7" />
-        <label>الزمن</label>
-        <input id="duration" value="ساعتان" />
-        <label>الدرجة</label>
-        <input id="score" value="20" />
-        <button class="btn-main" id="apply" type="button">كتابة البيانات فوق القالب</button>
-        <button class="btn-sec" id="print" type="button">طباعة / حفظ PDF</button>
-        <p class="note">الملف Word القابل للتحرير يُصدر من تطبيق الويب الكامل أو تطبيق الآيفون. هذه الصفحة معاينة قالب عربي RTL على رابط GitHub Pages نفسه.</p>
-      </aside>
-      <article class="sheet" id="paper">
-        <div class="head">
-          <div>
-            <div id="v-school" style="font-size:20px;font-weight:700">مدرسة النور الأهلية</div>
-            <div id="v-subject" style="margin-top:4px">اختبار الدراسات الاجتماعية</div>
-          </div>
-          <div class="seal">ختم<br/>المدرسة</div>
-        </div>
-        <div class="meta">
-          <div>الصف: <strong id="v-grade">الصف الخامس</strong></div>
-          <div>الفصل: <strong id="v-term">الفصل الأول · ㅄ7</strong></div>
-          <div>الزمن: <strong id="v-duration">ساعتان</strong></div>
-          <div>الدرجة: <strong id="v-score">20</strong></div>
-        </div>
-        <section class="q">
-          <h3>أولًا — اختر الإجابة الصحيحة</h3>
-          <p>1. عاصمة المملكة العربية السعودية هي:</p>
-          <ol class="opts" type="أ">
-            <li>الرياض</li>
-            <li>جدة</li>
-            <li>الدمام</li>
-            <li>مكة</li>
-          </ol>
-        </section>
-        <section class="q">
-          <h3>ثانيًا — أكمل الفراغ</h3>
-          <p>2. عاصمة المملكة هي [[الرياض]]</p>
-        </section>
-        <section class="q">
-          <h3>ثالثًا — صح أو خطأ</h3>
-          <p>3. تقع الرياض في وسط الجزيرة العربية.</p>
-        </section>
-        <p class="foot">انتهت الأسئلة — تمنياتنا بالتوفيق</p>
-      </article>
-    </div>
-  </div>
-  <script>
-    const map = [
-      ["school", "v-school"],
-      ["subject", "v-subject"],
-      ["grade", "v-grade"],
-      ["term", "v-term"],
-      ["duration", "v-duration"],
-      ["score", "v-score"]
-    ];
-    function apply() {
-      const subject = document.getElementById("subject").value;
-      document.getElementById("v-school").textContent = document.getElementById("school").value;
-      document.getElementById("v-subject").textContent = "اختبار " + subject;
-      document.getElementById("v-grade").textContent = document.getElementById("grade").value;
-      document.getElementById("v-term").textContent = document.getElementById("term").value;
-      document.getElementById("v-duration").textContent = document.getElementById("duration").value;
-      document.getElementById("v-score").textContent = document.getElementById("score").value;
-      const data = {};
-      map.forEach(([id]) => data[id] = document.getElementById(id).value);
-      localStorage.setItem("waraqa-v1", JSON.stringify(data));
-    }
-    document.getElementById("apply").onclick = apply;
-    document.getElementById("print").onclick = () => window.print();
-    try {
-      const saved = JSON.parse(localStorage.getItem("waraqa-v1") || "null");
-      if (saved) {
-        map.forEach(([id]) => { if (saved[id]) document.getElementById(id).value = saved[id]; });
-        apply();
-      }
-    } catch (e) {}
-  </script>
+<header class="top"><div><div class="brand">ورقة</div><div class="muted">أداة محلية · البيانات على هذا الجهاز فقط</div></div>
+<nav class="nav"><a href="#/">الرئيسية</a><a href="#/bank">البنك</a><a href="#/settings">الإعدادات</a></nav></header>
+<div class="wrap" id="app"></div>
+<script>
+const KEY="waraqa-v1";
+const L="أبجدهوز";
+function esc(s){
+  return String(s==null?"":s).split("&").join("&").split("<").join("<").split(">").join(">").split('"').join(""").split("'").join("&#39;");
+}
+const demoQs=[{id:"q1",type:"mcq",stem:"عاصمة المملكة العربية السعودية هي:",options:["الرياض","جدة","الدمام","مكة"],score:4},{id:"q2",type:"blank",stem:"عاصمة المملكة هي [[الرياض]]",score:4},{id:"q3",type:"tf",stem:"تقع الرياض في وسط الجزيرة العربية.",score:4},{id:"q4",type:"open",stem:"علل: تُعد المملكة ملتقى للقارات الثلاث.",score:4},{id:"q5",type:"open",stem:"حل المعادلة $x^2+1=0$ يُكتب كنص داخل السؤال.",score:4}];
+function demo(){return{school:{name:"مدرسة النور الأهلية"},questions:demoQs,exams:[{id:"exam_social_final",title:"اختبار الدراسات الاجتماعية",subject:"الدراسات الاجتماعية",grade:"الصف الخامس",term:"الفصل الدراسي الأول",minutes:"45",total:20,qids:demoQs.map(q=>q.id)}]}}
+function load(){try{const raw=JSON.parse(localStorage.getItem(KEY)||"null");if(raw&&raw.state&&Array.isArray(raw.state.exams))return{school:raw.state.school||demo().school,questions:raw.state.questions||[],exams:raw.state.exams||[]};if(raw&&raw.exams)return raw}catch(e){}return demo()}
+let S=load();
+function save(){localStorage.setItem(KEY,JSON.stringify({state:{school:S.school,questions:S.questions,exams:S.exams},version:3}))}
+function uid(p){return p+"_"+Math.random().toString(36).slice(2,8)}
+function route(){const h=(location.hash||"#/").slice(1)||"/";const m=h.match(/^\/exams\/([^/]+)(\/preview)?/);if(m)return{name:m[2]?"preview":"exam",id:decodeURIComponent(m[1])};if(h==="/bank")return{name:"bank"};if(h==="/settings")return{name:"settings"};return{name:"home"}}
+function go(p){location.hash=p}
+function stemHtml(s){return esc(s).replace(/\[\[([^\]]+)\]\]/g,'<span style="border-bottom:1px solid #1C1915;min-width:5rem;display:inline-block"></span>')}
+function examBy(id){return S.exams.find(e=>e.id===id)}
+function qsOf(e){return (e.qids||[]).map(id=>S.questions.find(q=>q.id===id)).filter(Boolean)}
+function sum(e){return qsOf(e).reduce((a,q)=>a+(Number(q.score)||0),0)}
+function validate(e){const t=Number(e.total||0),s=sum(e);return t&&s!==t?"مجموع الدرجات "+s+" بينما المطلوب "+t:""}
+function paper(e){const qs=qsOf(e);const rows=`<tr><td>المادة</td><td>${esc(e.subject)}</td><td>الصف</td><td>${esc(e.grade)}</td></tr><tr><td>الفصل</td><td>${esc(e.term)}</td><td>المدة</td><td>${esc(e.minutes)} دقيقة</td></tr><tr><td>الدرجة</td><td>${esc(e.total)}</td><td>النموذج</td><td>أ</td></tr>`;const body=qs.map((q,i)=>{let extra="";if(q.type==="mcq")extra="<p>"+(q.options||[]).map((o,j)=>esc((L[j]||(j+1))+") "+o)).join("<br>")+"</p>";if(q.type==="tf")extra="<p>صواب / خطأ</p>";return `<div class="q"><b>${i+1}) ${stemHtml(q.stem)}</b> <span class="muted">(${esc(q.score)})</span>${extra}</div>`}).join("");return `<article class="sheet"><div class="head"><div><div style="font-size:20px;font-weight:700">${esc(S.school.name)}</div><div>${esc(e.title)}</div></div><div class="seal">ختم<br>المدرسة</div></div><table class="meta">${rows}</table>${body}<p class="end">انتهت الأسئلة — تمنياتنا بالتوفيق</p><p class="muted">الملف Word قابل للتحرير واتجاهه عربي داخل خصائص الملف. راجعْه في Microsoft Word قبل الطباعة.</p></article>`}
+function render(){const r=route(),el=document.getElementById("app");if(r.name==="home"){el.innerHTML=`<h1>اختبار عربي جاهز للطباعة خلال دقائق</h1><p class="muted">أنشئ من البنك، اكتب الغلاف فوق القالب، ثم نزّل Word.</p><div class="row"><button class="main" id="new">إنشاء اختبار</button><button class="ghost" id="ready">معاينة النموذج الجاهز</button></div><div class="stats"><div class="card"><div class="muted">أسئلة في البنك</div><div style="font-size:28px">${S.questions.length}</div></div><div class="card"><div class="muted">اختبارات محفوظة</div><div style="font-size:28px">${S.exams.length}</div></div><div class="card"><div class="muted">أنواع الأسئلة</div><div style="font-size:28px">6</div></div></div><h2>الاختبارات</h2><ul class="list">${S.exams.map(e=>`<li data-id="${esc(e.id)}"><b>${esc(e.title)}</b><div class="muted">${esc(e.subject)} · ${qsOf(e).length} أسئلة</div></li>`).join("")}</ul>`;el.querySelector("#new").onclick=()=>{const e={id:uid("exam"),title:"اختبار جديد",subject:"",grade:"",term:"الفصل الدراسي الأول",minutes:"45",total:20,qids:[]};S.exams.unshift(e);save();go("/exams/"+e.id)};el.querySelector("#ready").onclick=()=>go("/exams/exam_social_final/preview");el.querySelectorAll("ul.list li").forEach(li=>li.onclick=()=>go("/exams/"+li.dataset.id));return}if(r.name==="bank"){el.innerHTML=`<h1>بنك الأسئلة</h1><div class="layout"><div class="card"><label>نص السؤال</label><textarea id="stem"></textarea><label>النوع</label><select id="type"><option value="mcq">اختيار من متعدد</option><option value="tf">صح وخطأ</option><option value="blank">إكمال فراغ</option><option value="open">مقال</option></select><label>الخيارات مفصولة بـ |</label><input id="opts"/><label>الدرجة</label><input id="sc" value="2"/><button class="main" id="add">إضافة للبنك</button></div><ul class="list">${S.questions.map(q=>`<li><b>${esc(q.stem)}</b><div class="muted">${esc(q.type)} · ${esc(q.score)}</div></li>`).join("")}</ul></div>`;el.querySelector("#add").onclick=()=>{const stem=el.querySelector("#stem").value.trim();if(!stem)return;const type=el.querySelector("#type").value;const q={id:uid("q"),type,stem:stem.slice(0,2000),score:Number(el.querySelector("#sc").value)||1};if(type==="mcq")q.options=el.querySelector("#opts").value.split("|").map(s=>s.trim()).filter(Boolean);S.questions.unshift(q);save();render()};return}if(r.name==="settings"){el.innerHTML=`<h1>الإعدادات</h1><label>اسم المدرسة</label><input id="school" value="${esc(S.school.name)}"/><div class="row"><button class="main" id="saveSch">حفظ</button><button class="ghost" id="wipe">حذف البيانات المحلية</button></div><p class="muted">لا حساب سحابي. لا تحليلات. المسح لهذا المتصفح فقط.</p>`;el.querySelector("#saveSch").onclick=()=>{S.school.name=el.querySelector("#school").value.slice(0,120);save();render()};el.querySelector("#wipe").onclick=()=>{S={school:{name:""},questions:[],exams:[]};localStorage.removeItem(KEY);save();render()};return}const exam=examBy(r.id);if(!exam){el.innerHTML="<p>الاختبار غير موجود.</p>";return}if(r.name==="preview"){el.innerHTML=`<div class="row"><button class="ghost" id="pdf">طباعة / PDF</button><button class="ghost" id="back">تعديل الغلاف</button></div><p class="err">${esc(validate(exam))}</p>${paper(exam)}`;el.querySelector("#pdf").onclick=()=>window.print();el.querySelector("#back").onclick=()=>go("/exams/"+exam.id);return}el.innerHTML=`<div class="layout"><div class="card"><label>عنوان الاختبار</label><input id="title" value="${esc(exam.title)}"/><label>المادة</label><input id="subject" value="${esc(exam.subject)}"/><label>الصف</label><input id="grade" value="${esc(exam.grade)}"/><label>الفصل</label><input id="term" value="${esc(exam.term)}"/><label>المدة</label><input id="minutes" value="${esc(exam.minutes)}"/><label>الدرجة</label><input id="total" value="${esc(exam.total)}"/><p class="err">${esc(validate(exam))}</p><div class="row"><button class="main" id="save">كتابة البيانات فوق القالب</button><button class="ghost" id="prev">معاينة</button></div><h3>أسئلة البنك</h3>${S.questions.map(q=>`<label><input type="checkbox" data-qid="${esc(q.id)}" ${exam.qids.includes(q.id)?"checked":""}/> ${esc(q.stem)}</label>`).join("")}</div>${paper(exam)}</div>`;const grab=()=>{exam.title=el.querySelector("#title").value.slice(0,160);exam.subject=el.querySelector("#subject").value.slice(0,120);exam.grade=el.querySelector("#grade").value.slice(0,80);exam.term=el.querySelector("#term").value.slice(0,80);exam.minutes=el.querySelector("#minutes").value.slice(0,20);exam.total=Number(el.querySelector("#total").value)||0;exam.qids=[...el.querySelectorAll("input[data-qid]:checked")].map(i=>i.dataset.qid);save()};el.querySelector("#save").onclick=()=>{grab();render()};el.querySelector("#prev").onclick=()=>{grab();go("/exams/"+exam.id+"/preview")}}
+addEventListener("hashchange",render);if(!location.hash)location.hash="/";else render();
+</script>
 </body>
 </html>
