@@ -1,5 +1,5 @@
-const CACHE = "unwani-pages-v1";
-const ASSETS = ["./", "./index.html", "./app.js", "./unwani-engine.js", "./styles.css", "./manifest.json", "./icon.svg"];
+const CACHE = "unwani-ios-v2";
+const ASSETS = ["./","index.html","./index.html","./app.js","./app-standalone.js","./unwani-engine.js","./styles.css","./manifest.json","./icon.svg","./apple-touch-icon.png"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
 });

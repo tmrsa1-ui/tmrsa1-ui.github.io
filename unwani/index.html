@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="عنواني — محرك محلي لتحليل العناوين الخليجية غير المنظمة دون تسجيل ودون ادعاء تحقق رسمي." />
+    <meta name="theme-color" content="#1c4f42" />
+    <title>عنواني — Unwani</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="عنواني" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div class="mark">عن</div>
+        <div>
+          <h1>عنواني <span class="muted">Unwani</span></h1>
+          <p>تحليل محلي للعناوين الخليجية — بلا تسجيل</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="subtle" id="installBtn" hidden>تثبيت التطبيق</button>
+        <span class="muted" id="offlineFlag"></span>
+      </div>
+    </header>
+    <nav id="nav"></nav>
+    <main>
+      <section class="page active" data-page="home">
+        <div class="hero">
+          <h2>ألصق عنوانًا مكتوبًا بأي صيغة.</h2>
+          <p>
+            يعيد النظام المكونات المحتملة مع درجة الثقة والأجزاء غير المفهومة.
+            التحليل يتم في متصفحك. لا يُرسل النص إلى خادم، ولا يُعدّ هذا تحققًا رسميًا.
+          </p>
+        </div>
+        <div class="disclaimer">
+          عنواني محلّل نصّي. <strong>ليس</strong> بديلًا عن العنوان الوطني أو مكاني أو عنواني أبوظبي أو أنواني قطر.
+          لا نختلق مدينة أو حيًا أو إحداثيات، ولا نضع شارة «موثّق رسميًا» على نتيجة محلية.
+        </div>
+      </section>
+
+      <section class="page" data-page="parse">
+        <h2>حلل عنوانًا</h2>
+        <p class="muted">الصق النص كما هو. الأرقام العربية الهندية تُحوَّل للمطابقة مع حفظ الأصل.</p>
+        <div class="chips" id="samples"></div>
+        <textarea id="input" placeholder="مثال: الرياض حي العارض شارع ريحانة بنت زيد مبنى 2929 الرمز 13337 الرقم الإضافي 8118"></textarea>
+        <div class="row">
+          <button class="primary" id="parseBtn">تحليل محلي</button>
+          <button class="ghost" id="clearBtn">مسح</button>
+          <button class="subtle" id="copyJsonBtn">نسخ JSON</button>
+          <button class="subtle" id="saveLocalBtn">حفظ على الجهاز</button>
+          <button class="subtle" id="deleteLocalBtn">حذف المحلي</button>
+          <button class="subtle" id="copyShipBtn">نسخ عنوان الشحن</button>
+        </div>
+        <div id="result" style="margin-top:1rem"></div>
+      </section>
+
+      <section class="page" data-page="compare">
+        <h2>قارن عنوانين</h2>
+        <p class="muted">المقارنة تُظهر الحقول المتطابقة والمتضاربة والناقصة، لا رقمًا واحدًا فقط.</p>
+        <div class="grid-2">
+          <div class="card"><label>العنوان أ</label><textarea id="cmpA"></textarea></div>
+          <div class="card"><label>العنوان ب</label><textarea id="cmpB"></textarea></div>
+        </div>
+        <div class="row"><button class="primary" id="cmpBtn">قارن محليًا</button></div>
+        <div id="cmpOut" style="margin-top:1rem"></div>
+      </section>
+
+      <section class="page" data-page="ship">
+        <h2>نسّق عنوان شحن</h2>
+        <p class="muted">التنسيق يعيد ترتيب ما استُخرج فقط. لا يُكمل الحقول الناقصة.</p>
+        <textarea id="shipIn"></textarea>
+        <div class="row"><button class="primary" id="shipBtn">تنسيق</button></div>
+        <div id="shipOut" style="margin-top:1rem"></div>
+      </section>
+
+      <section class="page" data-page="short">
+        <h2>افحص عنوانًا مختصرًا</h2>
+        <p class="muted">الصيغة المنشورة: أربعة أحرف لاتينية وأربعة أرقام مثل RAGI2929. مطابقة الشكل ليست تحققًا رسميًا.</p>
+        <textarea id="shortIn" placeholder="RAGI2929"></textarea>
+        <div class="row"><button class="primary" id="shortBtn">فحص الشكل</button></div>
+        <div id="shortOut" style="margin-top:1rem"></div>
+      </section>
+
+      <section class="page" data-page="guide">
+        <h2>دليل أنظمة العنونة الخليجية</h2>
+        <div class="card">
+          <h3>السعودية — العنوان الوطني (SPL)</h3>
+          <p>رقم المبنى (4) + الشارع + الحي + المدينة + الرمز البريدي (5) + الرقم الإضافي (4). العنوان المختصر: 4 أحرف + 4 أرقام.</p>
+          <h3>الإمارات</h3>
+          <p>دبي: رقم مكاني من 10 أرقام (بلدية دبي). أبوظبي: نظام أونواني Onwani (مبنى، شارع، مدينة، منطقة، رمز بريدي). النظامان مختلفان.</p>
+          <h3>قطر — أنواني</h3>
+          <p>مبنى + رقم شارع + رقم منطقة. المنطقة ليست حيًا وليست مدينة.</p>
+          <h3>البحرين / الكويت / عُمان</h3>
+          <p><strong>غير مدعوم بعد.</strong> تُكتشف الدولة فقط ويُرجع الحالة UNSUPPORTED_ADDRESS_SYSTEM. لا تحليل إنتاجي للحقول، ولا تحقق رسمي.</p>
+        </div>
+      </section>
+
+      <section class="page" data-page="privacy">
+        <h2>الخصوصية</h2>
+        <div class="card">
+          <ul>
+            <li>لا تسجيل.</li>
+            <li>التحليل يتم في المتصفح.</li>
+            <li>لا تُرسل العناوين إلى خادم أو نموذج ذكاء اصطناعي.</li>
+            <li>لا تُحفظ العناوين افتراضيًا.</li>
+            <li>لا تحليلات على محتوى العنوان.</li>
+            <li>احذف بيانات الموقع من المتصفح متى شئت.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="page" data-page="method">
+        <h2>المنهجية</h2>
+        <div class="card">
+          <p>المسار الأساسي حتمي: تطبيع محافظ → اكتشاف نظام العنونة بعدة إشارات → استخراج بمحدِّدات وروابط نصية → تحقق بنيوي → ثقة مفسَّرة.</p>
+          <p>كل قيمة مستخرجة تحمل span إلى النص الأصلي. لا يُملأ حقل مفقود من الجريدة الجغرافية إذا لم يرد في النص.</p>
+          <p>SYNTAX_VALID تعني أن الشكل يطابق قواعد النظام المتوقع، وليست تحققًا رسميًا.</p>
+        </div>
+      </section>
+
+      <section class="page" data-page="sources">
+        <h2>المصادر</h2>
+        <ul class="sources">
+          <li>SPL — National Address: <a href="https://splonline.com.sa/en/national-address-1/" target="_blank" rel="noopener">splonline.com.sa</a></li>
+          <li>National Address API portal: <a href="https://api.address.gov.sa/" target="_blank" rel="noopener">api.address.gov.sa</a> (غير مستدعى في هذا الإصدار)</li>
+          <li>Makani open data — Dubai Municipality: <a href="https://www.dm.gov.ae/open-data2/open-data-for-makani/" target="_blank" rel="noopener">dm.gov.ae</a></li>
+          <li>Onwani — DMT Abu Dhabi: <a href="https://pages.dmt.gov.ae/en/onwani" target="_blank" rel="noopener">pages.dmt.gov.ae/en/onwani</a></li>
+          <li>Qatar Post Anwani: <a href="https://qatarpost.qa/Home/PostalStandards" target="_blank" rel="noopener">qatarpost.qa</a></li>
+        </ul>
+        <p class="muted">عند استخدام بيانات مكاني لاحقًا يجب ذكر المصدر: بلدية دبي. لا يجوز بيع بيانات مكاني الخام.</p>
+      </section>
+
+      <section class="page" data-page="api">
+        <h2>API للمطورين</h2>
+        <div class="card">
+          <p>في v0.1.0-beta المحرك مكتبة محلية مفتوحة. الواجهة الشبكية غير مشغَّلة عمدًا.</p>
+          <pre><code>POST /v1/parse
+POST /v1/normalize
+POST /v1/validate
+POST /v1/compare
+POST /v1/format
+POST /v1/geocode
+POST /v1/batch</code></pre>
+          <p>الحزمة الحالية: <code>parseAddress(text)</code> و <code>compare(a, b)</code> من <code>@unwani/parser-core</code>.</p>
+        </div>
+      </section>
+
+      <section class="page" data-page="app">
+        <h2>تحميل التطبيق</h2>
+        <div class="card">
+          <p>هذا الموقع PWA قابلة للتثبيت على iOS وAndroid وسطح المكتب من المتصفح.</p>
+          <p>على آيفون: أضف الموقع إلى الشاشة الرئيسية الآن. المشروع الأصلي SwiftUI موجود في apps/ios/Unwani ويُفتح بـ Xcode على Mac.</p>
+          <button class="primary" id="installBtn2">تثبيت على الجهاز</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="changelog">
+        <h2>سجل تحديث قواعد الدول</h2>
+        <div class="card">
+          <p><strong>sa-1.0.0 / ae-1.0.0 / qa-1.0.0</strong> — 2026-09-07. محلّل محلي فقط. محوّلات API الرسمية stubs.</p>
+          <p>البحرين والكويت وعُمان: تُكتشف الدولة ويُعرض «نظام غير مدعوم بعد». لا محلّل إنتاجي ولا تحقق رسمي.</p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <strong>عنواني / Unwani</strong> منتج مختلف عن نظام أبوظبي الرسمي «Onwani».
+      الإصدار 0.1.0-beta. Apache-2.0. التحليل محلي. لا تحقق رسمي في هذا المسار.
+    </footer>
+    <script src="./unwani-engine.js"></script>
+    <script src="./app-standalone.js"></script>
+  </body>
+</html>
