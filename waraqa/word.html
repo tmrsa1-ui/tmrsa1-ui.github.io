@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ورقة — Word</title>
+<style>
+body{font-family:"IBM Plex Sans Arabic","Traditional Arabic",serif;background:#F6F3EC;color:#1C1915;margin:24px}
+button{background:#1F4D4A;color:#F6F3EC;border:0;padding:10px 14px;font:inherit;cursor:pointer}
+a{color:#1F4D4A}
+.muted{color:#6B645C}
+</style>
+</head>
+<body>
+<p><a href="./"><b>ورقة</b></a></p>
+<h1>تنزيل Word</h1>
+<p class="muted">يقرأ المخزن المحلي waraqa-v1 في هذا المتصفح ويُنتج ملفًا قابلًا للتحرير.</p>
+<p><button id="dl">تنزيل النموذج أ</button></p>
+<p id="msg" class="muted"></p>
+<script>
+function crc32(u){var t=new Uint32Array(256),c,n,k;for(n=0;n<256;n++){c=n;for(k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c}c=0xFFFFFFFF;for(n=0;n<u.length;n++)c=t[(c^u[n])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zip(files){var parts=[],cd=[],off=0;files.forEach(function(f){var name=new TextEncoder().encode(f.name),data=f.data,crc=crc32(data),lh=new Uint8Array(30+name.length),v=new DataView(lh.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(8,0,true);v.setUint16(10,0,true);v.setUint32(14,crc,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);lh.set(name,30);parts.push(lh,data);var ce=new Uint8Array(46+name.length),w=new DataView(ce.buffer);w.setUint32(0,0x02014b50,true);w.setUint16(4,20,true);w.setUint16(6,20,true);w.setUint32(16,crc,true);w.setUint32(20,data.length,true);w.setUint32(24,data.length,true);w.setUint16(28,name.length,true);w.setUint32(42,off,true);ce.set(name,46);cd.push(ce);off+=lh.length+data.length});var cds=cd.reduce(function(a,b){return a+b.length},0),eocd=new Uint8Array(22),z=new DataView(eocd.buffer);z.setUint32(0,0x06054b50,true);z.setUint16(8,files.length,true);z.setUint16(10,files.length,true);z.setUint32(12,cds,true);z.setUint32(16,off,true);return new Blob(parts.concat(cd,[eocd]),{type:"application/vnd.openxmlformats-officedocument.wordprocessingml.document"})}
+function load(){try{var raw=JSON.parse(localStorage.getItem("waraqa-v1")||"null");if(raw&&raw.state)return raw.state;if(raw&&raw.exams)return raw}catch(e){}return null}
+function xmlEsc(s){var a=String.fromCharCode(38);return String(s==null?"":s).split(a).join(a+"amp;").split("<").join(a+"lt;").split(">").join(a+"gt;")}
+function p(text){return "<w:p><w:pPr><w:bidi/><w:jc w:val=\"start\"/></w:pPr><w:r><w:rPr><w:rtl/><w:rFonts w:ascii=\"Traditional Arabic\" w:hAnsi=\"Traditional Arabic\" w:cs=\"Traditional Arabic\"/></w:rPr><w:t xml:space=\"preserve\">"+xmlEsc(text)+"</w:t></w:r></w:p>"}
+document.getElementById("dl").onclick=function(){var S=load();var msg=document.getElementById("msg");if(!S||!S.exams||!S.exams.length){msg.textContent="لا اختبار في المخزن. افتح اللوحة أولًا.";return}var e=S.exams[0];var qs=(e.qids||[]).map(function(id){return (S.questions||[]).find(function(q){return q.id===id})}).filter(Boolean);var body=p((S.school&&S.school.name)||"")+p(e.title||"")+p("المادة: "+(e.subject||"")+" · الصف: "+(e.grade||""))+p("الفصل: "+(e.term||"")+" · المدة: "+(e.minutes||"")+" · الدرجة: "+(e.total||""));qs.forEach(function(q,i){body+=p((i+1)+") "+(q.stem||"")+" ("+(q.score||"")+")");(q.options||[]).forEach(function(o,j){body+=p(("أبجدهوز"[j]||(j+1))+") "+o)})});body+=p("انتهت الأسئلة — تمنياتنا بالتوفيق");var ct=new TextEncoder().encode("[Content_Types].xml");var types=new TextEncoder().encode('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');var rels=new TextEncoder().encode('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');var doc=new TextEncoder().encode('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+body+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134"/><w:bidi/></w:sectPr></w:body></w:document>');var blob=zip([{name:"[Content_Types].xml",data:types},{name:"_rels/.rels",data:rels},{name:"word/document.xml",data:doc}]);var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(e.title||"exam")+"-أ.docx";a.click();msg.textContent="تم التنزيل. افتح الملف في Microsoft Word قبل الطباعة. لا نضمن كل العارضات.";};
+</script>
+</body>
+</html>
