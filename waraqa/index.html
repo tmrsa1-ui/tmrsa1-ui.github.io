@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ورقة — Waraqa</title>
+  <meta name="description" content="إنتاج أوراق اختبار عربية على الجهاز. محلي أولًا." />
+  <style>
+    :root {
+      --paper: #F6F3EC;
+      --raised: #FBF9F4;
+      --ink: #1C1915;
+      --muted: #6B645C;
+      --teal: #1F4D4A;
+      --line: #D7D0C4;
+      --crimson: #8B3A3A;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #E8E2D6; color: var(--ink); font-family: "IBM Plex Sans Arabic", "Noto Naskh Arabic", "Amiri", "Traditional Arabic", serif; }
+    body { min-height: 100dvh; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .brand { font-weight: 700; font-size: 22px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+    .panel, .sheet { background: var(--paper); border: 1px solid var(--line); }
+    .panel { padding: 16px; }
+    label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+    input, select, textarea {
+      width: 100%; background: var(--raised); border: 1px solid var(--line);
+      color: var(--ink); padding: 8px 10px; font: inherit; text-align: start;
+    }
+    button {
+      border: 0; cursor: pointer; font: inherit; padding: 10px 14px;
+    }
+    .btn-main { background: var(--teal); color: var(--paper); width: 100%; margin-top: 12px; }
+    .btn-sec { background: transparent; color: var(--ink); border: 1px solid var(--ink); width: 100%; margin-top: 8px; }
+    .note { font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 12px; }
+    .sheet { min-height: 980px; padding: 36px 40px; }
+    .head { display: grid; grid-template-columns: 1fr auto; gap: 16px; border-bottom: 2px solid var(--teal); padding-bottom: 12px; }
+    .seal {
+      width: 74px; height: 74px; border: 2px solid var(--teal); border-radius: 50%;
+      display: grid; place-items: center; font-size: 12px; color: var(--teal); text-align: center;
+    }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 16px 0 22px; font-size: 14px; }
+    .q { margin: 0 0 18px; text-align: start; }
+    .q h3 { margin: 0 0 6px; font-size: 15px; }
+    .opts { margin: 0; padding: 0 18px 0 0; }
+    .foot { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
+    @media print {
+      body { background: white; }
+      .panel, header .actions { display: none !important; }
+      .wrap { max-width: none; padding: 0; }
+      .sheet { border: 0; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">ورقة</div>
+        <div class="sub">معاينة محلية على GitHub Pages · البيانات على هذا الجهاز فقط</div>
+      </div>
+      <div class="actions"></div>
+    </header>
+    <div class="layout">
+      <aside class="panel">
+        <label>المدرسة</label>
+        <input id="school" value="مدرسة النور الأهلية" />
+        <label>المادة</label>
+        <input id="subject" value="الدراسات الاجتماعية" />
+        <label>الصف</label>
+        <input id="grade" value="الصف الخامس" />
+        <label>الفصل</label>
+        <input id="term" value="الفصل الأول · ㅄ7" />
+        <label>الزمن</label>
+        <input id="duration" value="ساعتان" />
+        <label>الدرجة</label>
+        <input id="score" value="20" />
+        <button class="btn-main" id="apply" type="button">كتابة البيانات فوق القالب</button>
+        <button class="btn-sec" id="print" type="button">طباعة / حفظ PDF</button>
+        <p class="note">الملف Word القابل للتحرير يُصدر من تطبيق الويب الكامل أو تطبيق الآيفون. هذه الصفحة معاينة قالب عربي RTL على رابط GitHub Pages نفسه.</p>
+      </aside>
+      <article class="sheet" id="paper">
+        <div class="head">
+          <div>
+            <div id="v-school" style="font-size:20px;font-weight:700">مدرسة النور الأهلية</div>
+            <div id="v-subject" style="margin-top:4px">اختبار الدراسات الاجتماعية</div>
+          </div>
+          <div class="seal">ختم<br/>المدرسة</div>
+        </div>
+        <div class="meta">
+          <div>الصف: <strong id="v-grade">الصف الخامس</strong></div>
+          <div>الفصل: <strong id="v-term">الفصل الأول · ㅄ7</strong></div>
+          <div>الزمن: <strong id="v-duration">ساعتان</strong></div>
+          <div>الدرجة: <strong id="v-score">20</strong></div>
+        </div>
+        <section class="q">
+          <h3>أولًا — اختر الإجابة الصحيحة</h3>
+          <p>1. عاصمة المملكة العربية السعودية هي:</p>
+          <ol class="opts" type="أ">
+            <li>الرياض</li>
+            <li>جدة</li>
+            <li>الدمام</li>
+            <li>مكة</li>
+          </ol>
+        </section>
+        <section class="q">
+          <h3>ثانيًا — أكمل الفراغ</h3>
+          <p>2. عاصمة المملكة هي [[الرياض]]</p>
+        </section>
+        <section class="q">
+          <h3>ثالثًا — صح أو خطأ</h3>
+          <p>3. تقع الرياض في وسط الجزيرة العربية.</p>
+        </section>
+        <p class="foot">انتهت الأسئلة — تمنياتنا بالتوفيق</p>
+      </article>
+    </div>
+  </div>
+  <script>
+    const map = [
+      ["school", "v-school"],
+      ["subject", "v-subject"],
+      ["grade", "v-grade"],
+      ["term", "v-term"],
+      ["duration", "v-duration"],
+      ["score", "v-score"]
+    ];
+    function apply() {
+      const subject = document.getElementById("subject").value;
+      document.getElementById("v-school").textContent = document.getElementById("school").value;
+      document.getElementById("v-subject").textContent = "اختبار " + subject;
+      document.getElementById("v-grade").textContent = document.getElementById("grade").value;
+      document.getElementById("v-term").textContent = document.getElementById("term").value;
+      document.getElementById("v-duration").textContent = document.getElementById("duration").value;
+      document.getElementById("v-score").textContent = document.getElementById("score").value;
+      const data = {};
+      map.forEach(([id]) => data[id] = document.getElementById(id).value);
+      localStorage.setItem("waraqa-v1", JSON.stringify(data));
+    }
+    document.getElementById("apply").onclick = apply;
+    document.getElementById("print").onclick = () => window.print();
+    try {
+      const saved = JSON.parse(localStorage.getItem("waraqa-v1") || "null");
+      if (saved) {
+        map.forEach(([id]) => { if (saved[id]) document.getElementById(id).value = saved[id]; });
+        apply();
+      }
+    } catch (e) {}
+  </script>
+</body>
+</html>
