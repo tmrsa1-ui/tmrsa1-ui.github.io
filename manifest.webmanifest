@@ -1,0 +1,28 @@
+{
+  "id": "/",
+  "name": "ورق — مدخل",
+  "short_name": "ورق",
+  "description": "معالجة محلية للفواتير والكشوف العربية. النص كما قُرئ، والمصدر ظاهر.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3EEE4",
+  "theme_color": "#F3EEE4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/__grok/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

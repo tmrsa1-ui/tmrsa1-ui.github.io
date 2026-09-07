@@ -1,0 +1,22 @@
+Tesseract.js worker and WASM
+Copyright (c) Tesseract.js contributors
+Licensed under Apache License 2.0
+https://github.com/naptha/tesseract.js
+
+tesseract-core-lstm.wasm / tesseract-core-lstm.wasm.js
+Copyright (c) tesseract.js-core contributors
+Apache License 2.0
+
+Language data (ara.traineddata, eng.traineddata)
+From @tesseract.js-data (tessdata 4.0.0_best_int LSTM)
+Origin: Tesseract OCR traineddata, Apache License 2.0
+https://github.com/tesseract-ocr/tessdata
+https://github.com/naptha/tessdata
+
+Files are stored *uncompressed*. Serving `.traineddata.gz` with
+`Content-Encoding: gzip` makes the browser inflate once and Tesseract
+inflate again, which breaks OCR. The worker is created with `gzip: false`.
+
+These files are bundled so OCR can run same-origin without sending
+user documents to a third party. They are downloaded at *app build /
+install time*, not when a user opens an invoice.

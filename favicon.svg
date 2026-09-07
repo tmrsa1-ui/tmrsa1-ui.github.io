@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="ورق">
+  <rect width="16" height="16" rx="3" fill="#1C1915"/>
+  <path fill="#F3EEE4" d="M4 3h5l3 3v7H4z"/>
+  <path fill="#8A7968" d="M9 3v3h3z"/>
+  <circle cx="8" cy="10" r="2" fill="#1F4E45"/>
+</svg>
